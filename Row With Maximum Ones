@@ -1,0 +1,41 @@
+class Solution {
+private:
+    int helper(vector<int>matrix,int m){
+        int s=0;
+        int e=m-1;
+
+        sort(matrix.begin(),matrix.end());
+
+        while(s<=e){
+            int mid=s+(e-s)/2;
+
+            if(matrix[mid]==1){
+                e=mid-1;
+            }else{
+                    s=mid+1;
+                }
+            
+        }
+        return (m-1)-s+1;
+    }
+public:
+    vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+        int n= mat.size();
+        int m= mat[0].size();
+
+        int maxi=0;
+        int maxindex=0;
+
+        for(int i=0;i<n;i++){
+            int oneindex = helper(mat[i],m);
+
+            if(oneindex>maxi){
+                maxi=oneindex;
+                maxindex = i;
+            }
+        }
+
+        return {maxindex,maxi};
+        
+    }
+};
