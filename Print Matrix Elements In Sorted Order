@@ -1,0 +1,42 @@
+void sortedMatrix(int N, vector<vector<int> > Mat)
+{
+    vector<int> temp;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            temp.push_back(Mat[i][j]);
+        }
+    }
+ 
+    sort(temp.begin(), temp.end());
+
+    for (int i = 0; i < temp.size(); i++) {
+        cout << temp[i] << " ";
+    }
+}
+
+// optimal search
+
+
+#include <bits/stdc++.h> 
+
+vector<int> getElementsInSortedOrder(vector<vector<int>> &matrix)
+{
+   priority_queue<int,vector<int>,greater<int>>pq;
+   int n = matrix.size();
+   int m = matrix[0].size();
+
+   for(int i = 0; i < n; i++){
+     for(int j = 0; j < m; j++){
+       pq.push(matrix[i][j]);
+     }
+   }
+
+  vector<int>ans;
+  while(pq.size() != NULL){
+    ans.push_back(pq.top());
+  pq.pop();
+  }
+
+return ans;
+
+}
