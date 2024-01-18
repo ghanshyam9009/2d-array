@@ -1,0 +1,54 @@
+//  brute force
+
+int median(vector<vector<int>> &matrix, int m, int n) {
+    // Write your code here.
+    vector<int>linear;
+    
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            linear.push_back(matrix[i][j]);
+        }
+    }
+    sort(linear.begin(),linear.end());
+    int s = 0;
+    int e = linear.size()-1;
+    int mid = s+(e-s)/2;
+    return linear[mid];
+}
+
+
+
+// optimal approach
+
+int upperBound(vector<int> arr, int low, int high, int num)
+{
+  int count = upper_bound(arr.begin(), arr.end(), num) - arr.begin();
+  return count;
+}
+
+int median(vector<vector<int>> &matrix, int m, int n) {
+
+  int low = 0;
+  int high = 1e9;
+  int medianIndex = (m * n) / 2;
+
+  while (low <= high)
+  {
+    int mid = low + (high - low) / 2;
+    int count = 0;
+
+    for (int i = 0; i < m; i++)  {
+      count += upperBound(matrix[i], 0, n - 1, mid);
+    }
+
+    if (count <= medianIndex)
+      low = mid + 1;
+
+    else
+      high = mid - 1;
+  }
+
+  return low;
+}
