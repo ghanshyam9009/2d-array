@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find common elements in rows of a matrix
+vector<int> findCommonElements(vector<vector<int>> &mat)
+{
+    int n = mat.size(); // Number of rows in the matrix
+    int m = mat[0].size(); // Number of columns in the matrix
+
+    unordered_map<int, int> mp; // Create an unordered_map to store elements and their row counts
+
+    // Initialize the map with elements from the first row
+    for (int i = 0; i < m; i++) {
+        mp[mat[0][i]] = 0;
+    }
+
+    // Loop through the remaining rows
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            // Check if the element exists in the map and its row count matches the previous row
+            // because if last row number == mp[mat[i][j]] then it means it is occured in previous row 
+            if (mp.find(mat[i][j]) != mp.end() && mp[mat[i][j]] == i - 1) {
+                mp[mat[i][j]] = i; // Update the row count for the element
+            }
+        }
+    }
+
+    vector<int> ans; // Create a vector to store common elements
+
+    // Iterate through the map to find elements that appeared in all rows
+    for (auto it : mp) {
+        if (it.second == n - 1) {
+            ans.push_back(it.first); // Add the common element to the result vector
+        }
+    }
+
+    return ans; // Return the vector containing common elements
+}
